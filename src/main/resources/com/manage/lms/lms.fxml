@@ -4,40 +4,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
 
-<TilePane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="421.0" prefWidth="680.0"
-          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.Main">
-   <VBox alignment="CENTER" prefHeight="360.0" prefWidth="627.0">
-      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="165.0" prefWidth="649.0">
-         <opaqueInsets>
-            <Insets/>
-         </opaqueInsets>
-         <Label alignment="CENTER" contentDisplay="TOP" graphicTextGap="50.0" prefHeight="97.0" prefWidth="519.0"
-                text="LMS" textAlignment="JUSTIFY">
-            <font>
-               <Font name="JetBrains Mono NL ExtraBold" size="72.0"/>
-            </font>
-         </Label>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-         <opaqueInsets>
-            <Insets left="10.0" right="10.0"/>
-         </opaqueInsets>
-         <Button onAction="#user" alignment="CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER"
-                 graphicTextGap="10.0" mnemonicParsing="false" text="User Login" textAlignment="CENTER">
-            <font>
-               <Font name="JetBrains Mono NL Light" size="21.0"/>
-            </font>
-         </Button>
-         <Button onAction="#admin" alignment="CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER"
-                 mnemonicParsing="false" text="Admin Login" textAlignment="CENTER">
-            <font>
-               <Font name="JetBrains Mono NL ExtraLight" size="22.0"/>
-            </font>
-         </Button>
-      </HBox>
-   </VBox>
-</TilePane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #3498db);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.Main">
+    <VBox alignment="CENTER" spacing="40.0">
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label text="Welcome to" textFill="WHITE">
+                <font>
+                    <Font name="System Light" size="24.0"/>
+                </font>
+            </Label>
+            <Label text="LIBRARY MANAGEMENT SYSTEM" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="48.0"/>
+                </font>
+                <effect>
+                    <DropShadow color="#00000080" radius="10.0" offsetY="5.0"/>
+                </effect>
+            </Label>
+            <Label text="Manage your books, issues, and users efficiently" textFill="#ecf0f1">
+                <font>
+                    <Font name="System Italic" size="18.0"/>
+                </font>
+            </Label>
+        </VBox>
+        
+        <HBox alignment="CENTER" spacing="40.0">
+            <padding>
+                <Insets top="40.0"/>
+            </padding>
+            <Button onAction="#user" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 35; -fx-cursor: hand;" text="User Portal">
+                <font>
+                    <Font name="System Bold" size="22.0"/>
+                </font>
+                <effect>
+                    <DropShadow color="#00000040" radius="5.0" offsetY="3.0"/>
+                </effect>
+            </Button>
+            <Button onAction="#admin" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 35; -fx-cursor: hand;" text="Admin Portal">
+                <font>
+                    <Font name="System Bold" size="22.0"/>
+                </font>
+                <effect>
+                    <DropShadow color="#00000040" radius="5.0" offsetY="3.0"/>
+                </effect>
+            </Button>
+        </HBox>
+    </VBox>
+</StackPane>

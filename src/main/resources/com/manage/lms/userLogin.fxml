@@ -3,81 +3,63 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
 
-<TilePane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="470.0" prefWidth="584.0" xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.UserLoginSignupController">
-    <VBox alignment="TOP_RIGHT" prefHeight="471.0" prefWidth="587.0">
-        <Button onAction="#homepage" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false"
-                style="-fx-background-color: transparent;" text="Back" textAlignment="CENTER"/>
-        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="20.0" prefHeight="150.0" prefWidth="580.0"
-               text="User Login" textAlignment="CENTER">
-            <font>
-                <Font name="JetBrains Mono NL ExtraBold" size="53.0"/>
-            </font>
-        </Label>
-        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="584.0">
-            <Label text="Username : ">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom right, #34495e, #2ecc71);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.UserLoginSignupController">
+    <VBox alignment="CENTER" spacing="20.0">
+        <VBox alignment="CENTER" prefWidth="400.0" maxWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 40;" spacing="20.0">
+            <effect>
+                <DropShadow color="#00000066" radius="15.0" offsetY="10.0"/>
+            </effect>
+            
+            <Label text="User Login" textFill="#2c3e50">
                 <font>
-                    <Font name="JetBrains Mono ExtraBold" size="13.0"/>
+                    <Font name="System Bold" size="36.0"/>
                 </font>
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
             </Label>
-            <TextField fx:id="loginUsername" prefHeight="35.0" prefWidth="215.0" promptText="Enter Username">
-                <font>
-                    <Font name="JetBrains Mono ExtraLight" size="13.0"/>
-                </font>
-            </TextField>
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="63.0" prefWidth="584.0">
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Password : ">
-                <font>
-                    <Font name="JetBrains Mono ExtraBold" size="13.0"/>
-                </font>
+            
+            <VBox spacing="5.0" alignment="CENTER_LEFT">
+                <Label text="Username" textFill="#7f8c8d">
+                    <font><Font name="System Bold" size="14.0"/></font>
+                </Label>
+                <TextField fx:id="loginUsername" prefHeight="45.0" promptText="Enter your username" style="-fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-border-width: 1.5; -fx-font-size: 14px;"/>
+            </VBox>
+            
+            <VBox spacing="5.0" alignment="CENTER_LEFT">
+                <Label text="Password" textFill="#7f8c8d">
+                    <font><Font name="System Bold" size="14.0"/></font>
+                </Label>
+                <PasswordField fx:id="loginPassword" prefHeight="45.0" promptText="Enter your password" style="-fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-border-width: 1.5; -fx-font-size: 14px;"/>
+            </VBox>
+            
+            <Label fx:id="loginError" textFill="#e74c3c" wrapText="true">
+                <font><Font size="13.0"/></font>
             </Label>
-            <TextField fx:id="loginPassword" prefHeight="34.0" prefWidth="216.0" promptText="Enter Password">
-                <font>
-                    <Font name="JetBrains Mono NL ExtraLight" size="13.0"/>
-                </font>
-            </TextField>
-        </HBox>
-        <HBox alignment="CENTER">
-            <Label fx:id="loginError" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="86.0"
-                  >
-                <font>
-                    <Font name="JetBrains Mono NL ExtraLight" size="13.0"/>
-                </font>
-            </Label>
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="67.0" prefWidth="584.0" spacing="20.0">
-            <opaqueInsets>
-                <Insets/>
-            </opaqueInsets>
-            <Button onAction="#userLoginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                    style="-fx-background-color: #d3d3d3; -fx-background-radius: 10;" text="Login"
-                    textAlignment="CENTER">
-                <font>
-                    <Font name="JetBrains Mono NL Medium" size="17.0"/>
-                </font>
+            
+            <Button onAction="#userLoginButton" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand;" text="Login">
+                <font><Font name="System Bold" size="18.0"/></font>
             </Button>
-            <Button onAction="#resetFields" mnemonicParsing="false" prefHeight="35.0" prefWidth="80.0"
-                    style="-fx-background-color: #d3d3d3; -fx-background-radius: 10;" text="Reset">
-                <font>
-                    <Font name="JetBrains Mono Medium" size="17.0"/>
-                </font>
+            
+            <Button onAction="#homepage" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6; -fx-cursor: hand; -fx-border-color: #ecf0f1; -fx-border-radius: 8;" text="Back to Home">
+                <font><Font size="14.0"/></font>
             </Button>
-        </HBox>
-        <HBox alignment="CENTER">
-            <Label onMouseClicked="#goToSignup" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0"
-                   prefWidth="143.0" text="New User? Signup" textAlignment="JUSTIFY">
-                <font>
-                    <Font name="JetBrains Mono NL ExtraLight Italic" size="13.0"/>
-                </font>
-            </Label>
-        </HBox>
+            
+            <HBox alignment="CENTER" spacing="5.0">
+                <padding><Insets top="10.0"/></padding>
+                <Label text="Don't have an account?" textFill="#7f8c8d"/>
+                <Label onMouseClicked="#goToSignup" text="Sign Up" textFill="#3498db" style="-fx-cursor: hand;">
+                    <font><Font name="System Bold" size="13.0"/></font>
+                </Label>
+            </HBox>
+        </VBox>
     </VBox>
-</TilePane>
+</StackPane>

@@ -1,61 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<TilePane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="692.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.BooksAdminController">
-    <VBox alignment="TOP_RIGHT" prefHeight="555.0" prefWidth="686.0">
-        <Button alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#logoutAdmin" style="-fx-background-color: transparent;" text="Logout" textAlignment="CENTER" />
-        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="20.0" prefHeight="113.0" prefWidth="686.0" text="Admin Dashboard" textAlignment="CENTER">
-            <font>
-                <Font name="JetBrains Mono NL ExtraBold" size="53.0" />
-            </font>
-        </Label>
-        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="686.0">
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="127.0" text="Username : ">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom right, #f8f9fa, #e9ecef);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.manage.lms.BooksAdminController">
+    <!-- Sidebar -->
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="650.0" prefWidth="250.0" style="-fx-background-color: linear-gradient(to bottom, #2c3e50, #c0392b);" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="30.0" left="20.0" right="20.0" top="40.0" />
+            </padding>
+            <effect>
+                <DropShadow color="#0000004d" radius="10.0" offsetX="2.0" />
+            </effect>
+            <Label text="LMS Portal" textFill="#ecf0f1">
                 <font>
-                    <Font name="JetBrains Mono ExtraBold" size="13.0" />
+                    <Font name="System Bold" size="28.0" />
+                </font>
+                <VBox.margin>
+                    <Insets bottom="40.0" />
+                </VBox.margin>
+            </Label>
+            
+            <!-- Admin Profile Avatar -->
+            <Circle fill="#e74c3c" radius="50.0" stroke="#ecf0f1" strokeType="INSIDE" strokeWidth="2.0">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <effect>
+                    <DropShadow color="#00000066" radius="5.0" offsetY="3.0" />
+                </effect>
+            </Circle>
+            
+            <Label text="Admin" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="22.0" />
                 </font>
             </Label>
-            <Label text="root" />
-        </HBox>
-        <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="686.0">
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="159.0"
-                   text="No. of Books : ">
+            <Label text="System Administrator" textFill="#bdc3c7">
                 <font>
-                    <Font name="JetBrains Mono ExtraBold" size="13.0"/>
+                    <Font size="13.0" />
                 </font>
+                <VBox.margin>
+                    <Insets bottom="40.0" />
+                </VBox.margin>
             </Label>
-            <Label text="\$stocks"/>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              minWidth="-Infinity" prefHeight="55.0" prefWidth="644.0">
-            <Button onAction="#insertBook" mnemonicParsing="false" style="-fx-background-color: #D1D0CE; -fx-background-radius: 10;"
-                    text="Add Book">
+
+            <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
+                <Button mnemonicParsing="false" onAction="#logoutAdmin" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 8; -fx-cursor: hand;" text="Logout" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <effect>
+                        <DropShadow color="#0000004d" radius="5.0" offsetY="2.0" />
+                    </effect>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- Main Content -->
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="25.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <Label text="Admin Dashboard" textFill="#2c3e50">
                 <font>
-                    <Font name="JetBrains Mono ExtraBold" size="13.0"/>
+                    <Font name="System Bold" size="36.0" />
                 </font>
-            </Button>
-        </HBox>
-        <HBox>
-            <TableView fx:id="adminBooksTable" editable="true" prefHeight="327.0" prefWidth="686.0"
-                       style="-fx-background-color: #D3D3D3;">
-                <columns>
-                    <TableColumn fx:id="bname" prefWidth="220.0" text="Book Name"/>
-                    <TableColumn fx:id="bauthor" prefWidth="192.0" text="Author"/>
-                    <TableColumn fx:id="byear" prefWidth="154.0" text="Year"/>
-                    <TableColumn fx:id="bstocks" prefWidth="92.0" text="Stocks"/>
-                </columns>
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
-            </TableView>
-        </HBox>
-    </VBox>
-</TilePane>
+                <VBox.margin>
+                    <Insets bottom="5.0" />
+                </VBox.margin>
+                <effect>
+                    <DropShadow color="#00000033" radius="2.0" offsetY="1.0" />
+                </effect>
+            </Label>
+            
+            <!-- Actions -->
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <Button mnemonicParsing="false" onAction="#insertBook" prefHeight="45.0" prefWidth="170.0" style="-fx-background-color: #3498db; -fx-background-radius: 8; -fx-cursor: hand;" text="+ Add New Book" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                    <effect>
+                        <DropShadow color="#0000004d" radius="5.0" offsetY="2.0" />
+                    </effect>
+                </Button>
+            </HBox>
+            
+            <!-- Tables Area -->
+            <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                <!-- All Books Table -->
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Library Collection" textFill="#34495e" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="filterCategoryAdmin" promptText="All Categories" prefWidth="130.0" style="-fx-background-radius: 15;"/>
+                        <ComboBox fx:id="sortAdminBooks" promptText="Sort Books..." prefWidth="130.0" style="-fx-background-radius: 15;"/>
+                        <TextField fx:id="searchAdminBooks" promptText="Search books..." prefWidth="200.0" style="-fx-background-radius: 15; -fx-padding: 5 10 5 10;"/>
+                    </HBox>
+                    <TableView fx:id="adminBooksTable" style="-fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-background-color: white;" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="bname" prefWidth="130.0" text="Book Name" sortable="false" />
+                            <TableColumn fx:id="bauthor" prefWidth="110.0" text="Author" />
+                            <TableColumn fx:id="categoryAdmin" prefWidth="110.0" text="Category" />
+                            <TableColumn fx:id="byear" prefWidth="40.0" text="Year" />
+                            <TableColumn fx:id="bstocks" prefWidth="40.0" text="Stocks" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <effect>
+                            <DropShadow color="#0000001a" radius="8.0" offsetY="2.0" />
+                        </effect>
+                    </TableView>
+                </VBox>
+                
+                <!-- Issued Books Table -->
+                <VBox spacing="10.0" prefWidth="550.0">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Issued Books Overview" textFill="#34495e" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="searchAdminIssued" promptText="Search users or books..." prefWidth="200.0" style="-fx-background-radius: 15; -fx-padding: 5 10 5 10;"/>
+                    </HBox>
+                    <TableView fx:id="adminIssuedTable" style="-fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-background-color: white;" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="issuedUser" prefWidth="70.0" text="User" />
+                            <TableColumn fx:id="issuedName" prefWidth="110.0" text="Book Name" />
+                            <TableColumn fx:id="issuedIssueDate" prefWidth="70.0" text="Issue Date" />
+                            <TableColumn fx:id="issuedReturnDate" prefWidth="70.0" text="Return Date" />
+                            <TableColumn fx:id="issuedDays" prefWidth="60.0" text="Days Passed" />
+                            <TableColumn fx:id="issuedFineAdmin" prefWidth="50.0" text="Fine ($)" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <effect>
+                            <DropShadow color="#0000001a" radius="8.0" offsetY="2.0" />
+                        </effect>
+                    </TableView>
+                    <!-- Analytics Chart -->
+                    <PieChart fx:id="analyticsChart" prefHeight="250.0" title="Books Issued by Category" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -7,14 +7,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 //Main UI
 public class Main extends Application {
     public static FXMLLoader fxmlLoader;
     static Stage mainStage;
+
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
+        Database.init();
         fxmlLoader = new FXMLLoader(Main.class.getResource("lms.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         mainStage.setScene(scene);

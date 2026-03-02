@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javafx.scene.control.ComboBox;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class NewBookController {
+public class NewBookController implements Initializable {
     public Button newBookCancel;
     public Button newBookAdd;
     public Label newBookError;
@@ -19,12 +24,23 @@ public class NewBookController {
     public TextField newBookYear;
     public TextField newBookAuthor;
     public TextField newBookName;
+    @FXML
+    public ComboBox<String> newBookCategory;
     public Scene panelScene;
     public static Connection connection;
     public static TableView<Books> booksTable;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (newBookCategory != null) {
+            newBookCategory.getItems().addAll("Software Engineering", "Computer Science", "Programming Languages",
+                    "DevOps", "Database", "AI / ML", "Frameworks", "Data Science", "Career", "General");
+            newBookCategory.getSelectionModel().selectFirst();
+        }
+    }
+
     // loads scene for adding book
-    void addBook(Connection conn,TableView<Books> adminBooksTable){
+    void addBook(Connection conn, TableView<Books> adminBooksTable) {
         booksTable = adminBooksTable;
         connection = conn;
         try {
@@ -37,15 +53,49 @@ public class NewBookController {
     }
 
     // updating DB with new book detail
-    public void Book2DB() throws SQLException, IOException {
-        PreparedStatement newBook = connection.prepareStatement("INSERT INTO Books VALUES(?,?,?,?)");
-        newBook.setString(1,newBookName.getText());
-        newBook.setString(2,newBookAuthor.getText());
-        newBook.setInt(3,Integer.parseInt(newBookYear.getText()));
-        newBook.setInt(4,Integer.parseInt(newBookStocks.getText()));
-        newBook.execute();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("adminPanel.fxml"));
-        Main.mainStage.setScene(new Scene(fxmlLoader.load()));
+    public void Book2DB() {
+        try {
+            if (newBookName.getText().isEmpty() || newBookAuthor.getText().isEmpty() ||
+                    newBookYear.getText().isEmpty() || newBookStocks.getText().isEmpty()) {
+                newBookError.setText("All fields are mandatory.");
+                return;
+            }
+
+            int year = Integer.parseInt(newBookYear.getText().trim());
+            int stocks = Integer.parseInt(newBookStocks.getText().trim());
+
+            if (stocks < 0) {
+                newBookError.setText("Available stocks cannot be negative.");
+                return;
+            }
+
+            PreparedStatement newBook = connection.prepareStatement("INSERT INTO Books VALUES(?,?,?,?,?)");
+            newBook.setString(1, newBookName.getText().trim());
+            newBook.setString(2, newBookAuthor.getText().trim());
+            newBook.setInt(3, year);
+            newBook.setInt(4, stocks);
+            newBook.setString(5, newBookCategory.getValue() != null ? newBookCategory.getValue() : "General");
+            newBook.execute();
+
+            BooksAdminController.loadBooks(connection);
+
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                    javafx.scene.control.Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Book '" + newBookName.getText().trim() + "' has been added successfully.");
+            alert.showAndWait();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("adminPanel.fxml"));
+            Main.mainStage.setScene(new Scene(fxmlLoader.load()));
+        } catch (NumberFormatException e) {
+            newBookError.setText("Year and Stocks must be valid numbers.");
+        } catch (SQLException e) {
+            newBookError.setText("Database error. Book may already exist.");
+        } catch (Exception e) {
+            newBookError.setText("An unexpected error occurred.");
+            e.printStackTrace();
+        }
     }
 
     // cancel button back to admin panel

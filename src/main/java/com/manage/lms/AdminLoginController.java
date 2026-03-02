@@ -17,7 +17,6 @@ public class AdminLoginController {
     boolean connected = false;
     public static FXMLLoader fxmlLoader;
 
-
     // reset button handler
     public void resetFields() {
         adminUsername.clear();
@@ -27,28 +26,33 @@ public class AdminLoginController {
 
     // admin login button handler
     public void adminLoginButton() throws IOException {
-        String serverName = "localhost";
-        String mydatabase = "lms";
-        String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-
         try {
-            conn = DriverManager.getConnection(url,adminUsername.getText(),adminPasword.getText());
-            connected = conn.isValid(1);
-        } catch (SQLException ignored) {
+            conn = Database.connect();
+            try (PreparedStatement pstmt = conn
+                    .prepareStatement("SELECT * FROM Admins WHERE Username=? AND Password=?")) {
+                pstmt.setString(1, adminUsername.getText());
+                pstmt.setString(2, Database.hashPassword(adminPasword.getText()));
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    connected = rs.next();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if(connected){
+            if (connected) {
                 signinError.setText("");
                 BooksAdminController.loadBooks(conn);
-                fxmlLoader = new  FXMLLoader(Main.class.getResource("adminPanel.fxml"));
+                fxmlLoader = new FXMLLoader(Main.class.getResource("adminPanel.fxml"));
                 Main.getMainStage().setScene(new Scene(fxmlLoader.load()));
 
-            }else{
+            } else {
                 signinError.setText("Invalid Credentials or DB Inaccessible");
             }
 
         }
 
     }
+
     public void homepage() throws IOException {
         fxmlLoader = new FXMLLoader(Main.class.getResource("lms.fxml"));
         Main.getMainStage().setScene(new Scene(fxmlLoader.load()));
